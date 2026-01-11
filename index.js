@@ -1,28 +1,41 @@
-import express from "express";
-import mongoose from "mongoose";
-import { PORT, MONGODB_URI } from "./config.js";
-import booksRoute from "./routes/booksRoute.js";
+import express from 'express';
+import { PORT, mongoDBURL} from './config.js';
+import mongoose from 'mongoose';
+import booksRoute from './routes/booksRoute.js';
+import cors from 'cors';
 
 const app = express();
+
+// Middleware for parsing request body
 app.use(express.json());
 
+// Middleware for handling CORS POLICY
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+  })
+);
+
 // Test route
-app.get("/", (req, res) => {
-  res.status(200).send("Hello World!");
+app.get('/', (request, response) => {
+  console.log(request);
+  return response.status(234).send('Welcome To MERN Stack Tutorial');
 });
 
-// Mount routes
-app.use("/api/books", booksRoute);
+// Routes
+app.use('/api/books', booksRoute);
 
-// MongoDB connect
+// MongoDB connection
 mongoose
-  .connect(MONGODB_URI)
+  .connect(mongoDBURL)
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log('App connected to database');
     app.listen(PORT, () => {
-      console.log(`App listening on port ${PORT}`);
+      console.log(`App is listening to port: ${PORT}`);
     });
   })
   .catch((error) => {
-    console.error("MongoDB error:", error);
+    console.log(error);
   });
