@@ -1,5 +1,30 @@
-import React from "react";
+import { useState, useEffect } from "react"; 
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import BackButton from "../components/BackButton.jsx";
+import Spinner from "../components/Sppiner.jsx";
+
+
 const ShowBook = () => {
+    const { id } = useParams();
+    const [book, setBook] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/books/${id}`)
+            .then(response => {
+                setBook(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Error fetching book:", error);
+                setLoading(false);
+            });
+    }, [id]);
+
+    if (loading) return <div>Loading...</div>;
+    if (!book) return <div>Book not found</div>;
+
     return (
         <div className="max-w-md mx-auto mt-10">
             <h2 className="text-2xl font-bold mb-5">Book Details</h2>

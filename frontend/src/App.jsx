@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home.jsx'
+import CreateBook from './pages/CreateBook.jsx'
+import DeleteBook from './pages/DeleteBook.jsx'
+import EditBook from './pages/EditBook.jsx'
+import ShowBook from './pages/ShowBook.jsx'
+
 
 
 function App() {
@@ -8,7 +14,11 @@ function App() {
 
   return (
      <Routes>
-      <Route path="/" element={<h1 className="text-3xl font-bold underline">Hello world!</h1>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/create" element={<CreateBook />} />
+        <Route path="/edit" element={<EditBook />} />
+        <Route path="/delete" element={<DeleteBook />} />
+        <Route path="/show" element={<ShowBook />} />
     </Routes>
   )
 }
