@@ -1,6 +1,48 @@
-import React from "react";
+import { useState } from "react"; 
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import BackButton from "../components/BackButton.jsx";
+import Spinner from "../components/Sppiner.jsx";
+
 
 const CreateBook = () => {
+    const [title, setTitle] = useState("");
+    const [author, setAuthor] = useState("");
+    const [genre, setGenre] = useState("");
+    const  [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const handleTitleChange = (e) => setTitle(e.target.value);
+    const handleAuthorChange = (e) => setAuthor(e.target.value);
+    const handleGenreChange = (e) => setGenre(e.target.value);
+      const data = {
+         title,
+         author,
+         publishedDate:
+         genre };
+
+setLoading(true);
+axios.post("http://localhost:5000/books", data)
+    .then(() => {
+        setLoading(false);  
+        navigate("/");
+    })
+    .catch((error) => {
+        console.error("Error creating book:", error);
+        setLoading(false);
+    }
+);
+         
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post("http://localhost:5000/books", { title, author, genre });
+            navigate("/");
+        } catch (error) {
+            console.error("Error creating book:", error);
+        }
+    };
+
   return (
     <div className="max-w-md mx-auto mt-10">
         <h2 className="text-2xl font-bold mb-5">Create a New Book</h2>
@@ -23,4 +65,3 @@ const CreateBook = () => {
   );
 }
 export default CreateBook;
-           
