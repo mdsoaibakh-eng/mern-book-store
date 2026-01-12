@@ -1,11 +1,10 @@
 import express from 'express';
-import Book from '../models/bookModel.js';
-
+import { Book } from '../models/bookModel.js';
 
 const router = express.Router();
 
 // Route for Save a new Book
-router.post('/books', async (request, response) => {
+router.post('/', async (request, response) => {
   try {
     if (
       !request.body.title ||
@@ -16,7 +15,6 @@ router.post('/books', async (request, response) => {
         message: 'Send all required fields: title, author, publishYear',
       });
     }
-
     const newBook = {
       title: request.body.title,
       author: request.body.author,
@@ -24,6 +22,7 @@ router.post('/books', async (request, response) => {
     };
 
     const book = await Book.create(newBook);
+
     return response.status(201).send(book);
   } catch (error) {
     console.log(error.message);
@@ -31,8 +30,8 @@ router.post('/books', async (request, response) => {
   }
 });
 
-// Route for Get All Books
-router.get('/books', async (request, response) => {
+// Route for Get All Books from database
+router.get('/', async (request, response) => {
   try {
     const books = await Book.find({});
 
@@ -46,8 +45,8 @@ router.get('/books', async (request, response) => {
   }
 });
 
-// Route for Get One Book by ID
-router.get('/books/:id', async (request, response) => {
+// Route for Get One Book from database by id
+router.get('/:id', async (request, response) => {
   try {
     const { id } = request.params;
 
@@ -61,7 +60,7 @@ router.get('/books/:id', async (request, response) => {
 });
 
 // Route for Update a Book
-router.put('/books/:id', async (request, response) => {
+router.put('/:id', async (request, response) => {
   try {
     if (
       !request.body.title ||
@@ -88,8 +87,8 @@ router.put('/books/:id', async (request, response) => {
   }
 });
 
-// Route for Delete a Book
-router.delete('/books/:id', async (request, response) => {
+// Route for Delete a book
+router.delete('/:id', async (request, response) => {
   try {
     const { id } = request.params;
 

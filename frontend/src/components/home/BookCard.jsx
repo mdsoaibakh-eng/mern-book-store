@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
-import { FaBook } from "react-icons/fa";
-import { PiBookOpenLight } from "react-icons/pi";
-import { MdMenuBook } from "react-icons/md";
-import { GiBookCover } from "react-icons/gi";
-import {MdOutLightDElete} from "react-icons/md";
+import { Link } from 'react-router-dom';
+import { PiBookOpenTextLight } from 'react-icons/pi';
+import { BiUserCircle } from 'react-icons/bi';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { BsInfoCircle } from 'react-icons/bs';
+import { MdOutlineDelete } from 'react-icons/md';
+import BookSingleCard from './BookSingleCard';
 
-const BookCard = ({ book }) => {
-    return (
-        <div className="border border-gray-300 rounded-lg p-4 shadow-md">       
-            <h3 className="text-xl font-semibold mb-2">{book.title}</h3>
-            <p className="text-gray-700 mb-1"><strong>Author:</strong> {book.author}</p>
-            <p className="text-gray-700"><strong>Genre:</strong> {book.genre}</p>
-        </div>
-    );
-}   ;
+const BookCard = ({ books }) => {
+  return (
+    <div className='grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+      {books.map((item) => (
+        <BookSingleCard key={item._id} book={item} />
+      ))}
+    </div>
+  );
+};
+
 export default BookCard;
