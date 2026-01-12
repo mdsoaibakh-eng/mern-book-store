@@ -1,4 +1,10 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import { FaBook } from "react-icons/fa";
+import { PiBookOpenLight } from "react-icons/pi";
+import { MdMenuBook } from "react-icons/md";
+import { GiBookCover } from "react-icons/gi";
+import {MdOutLightDElete} from "react-icons/md";
+
 const BookCard = ({ book }) => {
     return (
         <div className="border border-gray-300 rounded-lg p-4 shadow-md">       

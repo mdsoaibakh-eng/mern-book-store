@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { FiPlus } from "react-icons/fi";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import BookTable from "../components/home/BookTable.jsx";
+import BookCard from "../components/home/BookCard.jsx";
+
 
 const Home = () => {
     const [books, setBooks] = useState([]);
