@@ -11,24 +11,26 @@ const EditBook = () => {
   const [publishYear, setPublishYear] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/books/${id}`)
-    .then((response) => {
+    axios
+      .get(`http://localhost:5000/books/${id}`)
+      .then((response) => {
         setAuthor(response.data.author);
-        setPublishYear(response.data.publishYear)
-        setTitle(response.data.title)
+        setPublishYear(response.data.publishYear);
+        setTitle(response.data.title);
         setLoading(false);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         setLoading(false);
-        alert('An error happened. Please Chack console');
+        alert('An error happened. Please Check console');
         console.log(error);
       });
-  }, [])
-  
+  }, []);
+
   const handleEditBook = () => {
     const data = {
       title,
