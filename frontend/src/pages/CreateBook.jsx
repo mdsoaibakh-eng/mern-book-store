@@ -29,8 +29,12 @@ const CreateBook = () => {
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
+        // Check for specific error types
+        if (error.code === 'ERR_NETWORK' || error.code === 'ERR_CONNECTION_REFUSED') {
+          enqueueSnackbar('Error: Unable to connect to backend server. Please check your internet connection or server status.', { variant: 'error' });
+        } else {
+          enqueueSnackbar('Error: Failed to create book. Please try again.', { variant: 'error' });
+        }
         console.log(error);
       });
   };
